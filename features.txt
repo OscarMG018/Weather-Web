@@ -1,0 +1,32 @@
+Current Weather:
+    Temperature, humidity, wind speed, visibility, pressure, cloud coverage, etc.
+5-Day / 3-Hour Forecast:
+    Display upcoming weather broken into 3-hour chunks.
+Daily Forecast:
+    Summarize forecasts into daily highs/lows and weather conditions.
+Weather Icons:
+    Use OpenWeatherMap's condition icons for visual representation.
+User Location Detection:
+    Use browser geolocation to show weather for the user's current location.
+Search by City or ZIP Code:
+    Allow users to look up weather by name or postal code.
+Saved Locations:
+    Let users bookmark several locations for quick access.
+Hourly Forecast Graphs:
+    Plot temperature, wind, or precipitation by hour.
+UV Index:
+    Display UV risk levels with health guidance.
+Air Pollution Data:
+    Show air quality index (PM2.5, PM10, CO, etc.)
+Sunrise and Sunset Times:
+    Display exact times and highlight remaining daylight.
+Feels Like Temperature:
+    Show perceived temperature based on humidity/wind.
+Dark Mode / Light Mode:
+    Adjust UI based on time or user preference.
+Unit Toggle:
+    Switch between Celsius/Fahrenheit, km/h/mph, mm/in.
+Multilingual Support:
+    English, Spanish, French
+Responsive Design:
+    Ensure the app works on all devices and screen sizes.
