@@ -3,9 +3,14 @@ import { createRoot } from 'react-dom/client'
 
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css'
+import './styles/index.css'
+import { ThemeProvider } from './context/ThemeProvider.jsx'
+import './i18n/index.js'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 )
