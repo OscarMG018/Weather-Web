@@ -10,10 +10,10 @@ function LangDropDown() {
 
   return (
     <div>
-      <select className="form-select" onChange={(e) => changeLanguage(e.target.value)}>
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
+      <select className="form-select button-secondary" onChange={(e) => changeLanguage(e.target.value)}>
+        <option className="tx-black" value="en">English</option>
+        <option className="tx-black" value="es">Español</option>
+        <option className="tx-black" value="fr">Français</option>
       </select>
     </div>
   )

@@ -13,10 +13,74 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root.theme-light {
+  --bs-body-bg: linear-gradient( #4f65af 0%, #7f4faf 100%);
+  --bs-bg-primary: #ffffff;
+  --bs-bg-secondary: #c4c4c4;
+  --bs-tx-primary: #2c86fc;
+  --bs-tx-secondary: #000000;
+}
+
+:root.theme-dark {
+  --bs-body-bg: linear-gradient(0deg, #293361 0%, #3c2652 100%);
+  --bs-bg-primary: #242424;
+  --bs-bg-secondary: #424242;
+  --bs-tx-primary: #5b76f0;
+  --bs-tx-secondary: #ffffff;
+}
+
+.tx-black {
+  color: #000000;
+}
+
+.tx-primary {
+  color: var(--bs-tx-primary);
+}
+
+.tx-secondary {
+  color: var(--bs-tx-secondary);
+}
+
+.button-primary {
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  color: var(--bs-tx-primary);
+  border-color: var(--bs-tx-primary);
+}
+
+.button-primary:hover {
+  background-color: var(--bs-tx-primary);
+  border-color: var(--bs-bg-primary);
+  transition: background-color, color 0.3s ease;
+}
+
+.button-secondary {
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  color: var(--bs-tx-secondary);
+}
+
+.background-primary {
+  background-color: var(--bs-bg-primary);
+}
+
+.background-secondary {
+  background-color: var(--bs-bg-secondary);
+}
+
+body {
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  transition: background 0.5s ease, color 0.3s ease;
+  min-height: 100vh;
+  margin: 0;
+}
 
 body, html, #root {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -24,31 +88,23 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #ff0000;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+  }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  button {
-    background-color: #f9f9f9;
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2em;
   }
 }
+
+/* Ensure proper spacing on mobile */
+@media (max-width: 768px) {
+  .p-3 {
+    padding: 1rem !important;
+  }
+}
+
