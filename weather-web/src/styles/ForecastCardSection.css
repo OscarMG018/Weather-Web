@@ -1,0 +1,84 @@
+.forecast-card-section {
+  transition: all 0.3s ease;
+}
+
+.forecast-toggle-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.forecast-toggle-button {
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.forecast-toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.forecast-toggle-button.active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chart-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* Dark mode specific chart styling */
+.theme-dark .chart-container {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode specific chart styling */
+.theme-light .chart-container {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.forecast-info {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .forecast-toggle-buttons {
+    gap: 0.25rem;
+  }
+  
+  .forecast-toggle-button {
+    font-size: 0.8rem;
+    min-width: 80px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .chart-container {
+    height: 250px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .forecast-toggle-button {
+    font-size: 0.75rem;
+    min-width: 70px;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .chart-container {
+    height: 200px !important;
+  }
+} 

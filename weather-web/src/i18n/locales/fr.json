@@ -1,3 +1,20 @@
 {
-    "title": "Weather App"
+    "title": "Weather App",
+    "humidity": "humidité",
+    "temperature": "température",
+    "wind_speed": "vitesse du vent",
+    "visibility": "visibilité",
+    "air_pressure": "pression atmosphérique",
+    "cloud_cover": "couverture nuageuse",
+    "precipitation": "précipitation",
+    "uv_index": "Indice UV",
+    "air_quality": "qualité de l'air",
+    "daylight": "lumière du jour",
+    "no_locations": "Il n'y a pas d'emplacements enregistrés",
+    "search_placeholder": "Rechercher une ville ou un code postal...",
+    "save_current_location": "Enregistrer l'emplacement actuel",
+    "delete_location": "Supprimer l'emplacement",
+    "24_hour_forecast": "Prévision sur 24 Heures",
+    "forecast_for_next_24_hours": "Prévision de {{metric}} pour les prochaines 24 heures",
+    "saved_locations": "Emplacements enregistrés"
 }

@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -16,13 +16,13 @@
 :root.theme-light {
   --bs-body-bg: linear-gradient( #4f65af 0%, #7f4faf 100%);
   --bs-bg-primary: #ffffff;
-  --bs-bg-secondary: #c4c4c4;
+  --bs-bg-secondary: #e0e0e0;
   --bs-tx-primary: #2c86fc;
   --bs-tx-secondary: #000000;
 }
 
 :root.theme-dark {
-  --bs-body-bg: linear-gradient(0deg, #293361 0%, #3c2652 100%);
+  --bs-body-bg: linear-gradient(0deg, #3c2652 0%, #293361 100%);
   --bs-bg-primary: #242424;
   --bs-bg-secondary: #424242;
   --bs-tx-primary: #5b76f0;
@@ -39,6 +39,18 @@
 
 .tx-secondary {
   color: var(--bs-tx-secondary);
+}
+
+
+.main-temperature {
+  font-size: 3em;
+  line-height: 1.1;
+  font-weight: 300;
+  color: var(--bs-tx-primary);
+  text-align: center;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  font-size: 5em;
 }
 
 .button-primary {
@@ -76,16 +88,35 @@ body {
   margin: 0;
 }
 
-body, html, #root {
-  height: 100%;
+html, body, #root {
+  min-height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  background: var(--bs-body-bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  text-align: center;
+  font-weight: 400;
 }
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 0.8em;
 }
 
 /* Responsive typography */
