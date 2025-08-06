@@ -10,3 +10,24 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Server Context
+
+A `ServerContext` is available to provide server-related information (such as the API base URL) to your React components.
+
+### Usage
+
+1. The app is wrapped with `ServerProvider` in `main.jsx`, so you can access the context anywhere in the component tree.
+2. To access the server URL or update it, use the `useServer` hook:
+
+```jsx
+import { useServer } from './src/context/ServerContext.jsx';
+
+function MyComponent() {
+  const { serverUrl, setServerUrl } = useServer();
+  // Use serverUrl to make API requests
+}
+```
+
+- `serverUrl`: The current base URL for the backend server (default: `http://localhost:3000`).
+- `setServerUrl`: Function to update the server URL if needed.

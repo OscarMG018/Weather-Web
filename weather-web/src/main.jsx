@@ -6,11 +6,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css'
 import { ThemeProvider } from './context/ThemeProvider.jsx'
 import './i18n/index.js'
+import { ServerProvider } from './context/ServerContext.jsx'
+import { CurrentLocationProvider } from './context/CurrentLocationContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <ServerProvider>
+      <CurrentLocationProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </CurrentLocationProvider>
+    </ServerProvider>
   </StrictMode>,
 )

@@ -16,5 +16,23 @@
     "delete_location": "Delete location",
     "24_hour_forecast": "24-Hour Forecast",
     "forecast_for_next_24_hours": "{{metric}} forecast for the next 24 hours",
-    "saved_locations": "Saved Locations"
+    "saved_locations": "Saved Locations",
+    "serch_for_location": "Search for a location",
+
+    "thunderstorm" : "Thunderstorm",
+    "drizzle" : "Drizzle",
+    "rain" : "Rain",
+    "snow" : "Snow",
+    "mist" : "Mist",
+    "smoke" : "Smoke",
+    "haze" : "Haze",
+    "dust" : "Dust",
+    "fog" : "Fog",
+    "sand" : "Sand",
+    "ash" : "Ash",
+    "squall" : "Squall",
+    "tornado" : "Tornado",
+    "clear" : "Clear",
+    "clouds" : "Clouds",
+    "unknown" : "Unknown"
 }

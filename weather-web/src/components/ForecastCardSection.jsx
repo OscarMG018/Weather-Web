@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import '../styles/ForecastCardSection.css';
 import { useTheme } from '../context/ThemeProvider';
 import { useTranslation } from 'react-i18next';
+import { useCurrentLocation } from '../context/CurrentLocationContext.jsx';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,8 +15,6 @@ import {
   Legend,
 } from 'chart.js';
 
-
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,28 +25,45 @@ ChartJS.register(
   Legend
 );
 
-
-
 const ForecastCardSection = () => {
   const [activeMetric, setActiveMetric] = useState('temperature');
   const { theme } = useTheme();
   const { t } = useTranslation();
+  const { currentLocation } = useCurrentLocation();
+  const forecast = currentLocation?.forecast;
 
-  // Sample forecast data (TODO replace with call to API)
+  // If no forecast, show prompt
+  if (!forecast || forecast.length === 0) {
+    return (
+      <div className="p-3 rounded-4 background-primary forecast-card-section text-center">
+        <h3 className="tx-primary mb-4">{t('24_hour_forecast')}</h3>
+        <p className="tx-secondary">{t('search_for_location') || 'Search for a location'}</p>
+      </div>
+    );
+  }
+
+  // Build chart data from forecast
+  const labels = forecast.map((item, idx) => `${3 * idx}:00`);
+  const temperature = forecast.map(item => item.temp);
+  const windSpeed = forecast.map(item => item.wind?.speed);
+  const humidity = forecast.map(item => item.humidity);
+  const pressure = forecast.map(item => item.pressure || 1013);
+  const visibility = forecast.map(item => (item.visibility !== undefined ? item.visibility / 1000 : null));
+
   const forecastData = {
-    labels: ['12:00', '15:00', '18:00', '21:00', '00:00', '03:00', '06:00', '09:00'],
-    temperature: [22, 24, 26, 23, 20, 18, 19, 21],
-    windSpeed: [12, 15, 18, 14, 10, 8, 9, 11],
-    humidity: [65, 60, 55, 70, 75, 80, 78, 72],
-    pressure: [1013, 1012, 1011, 1014, 1015, 1016, 1015, 1013],
-    visibility: [10, 9, 8, 7, 6, 5, 6, 8]
+    labels,
+    temperature,
+    windSpeed,
+    humidity,
+    pressure,
+    visibility
   };
 
   const metrics = [
     { key: 'temperature', label: t('temperature'), unit: '°C', color: '#ff6b6b' },
     { key: 'windSpeed', label: t('wind_speed'), unit: 'km/h', color: '#4ecdc4' },
-    { key: 'humidity', label: t('humidity'), unit: '%', color: '#45b7d1' },
-    { key: 'pressure', label: t('air_pressure'), unit: 'hPa', color: '#96ceb4' },
+    { key: 'humidity', label: t('humidity'), unit: '%', color: '#8e44ad' },
+    { key: 'pressure', label: t('air_pressure'), unit: 'hPa', color: '#e67e22' },
     { key: 'visibility', label: t('visibility'), unit: 'km', color: '#feca57' }
   ];
 
@@ -145,7 +161,6 @@ const ForecastCardSection = () => {
   return (
     <div className="p-3 rounded-4 background-primary forecast-card-section">
       <h3 className="tx-primary mb-4 text-center">{t('24_hour_forecast')}</h3>
-      
       {/* Toggle Buttons */}
       <div className="forecast-toggle-buttons">
         {metrics.map((metric) => (
@@ -165,12 +180,10 @@ const ForecastCardSection = () => {
           </button>
         ))}
       </div>
-
       {/* Chart Container */}
       <div className="chart-container" style={{ height: '300px', position: 'relative' }}>
         <Line data={getChartData(activeMetric)} options={chartOptions} />
       </div>
-
       {/* Current Metric Info */}
       <div className="text-center forecast-info">
         <small className="tx-secondary">

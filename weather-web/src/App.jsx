@@ -26,19 +26,19 @@ function App() {
         <div className="col-12">
           <Header className="p-3 rounded-4 background-primary">
             <div className="row w-100 align-items-center">
-              <div className="col-12 col-sm-6 col-md-4 mb-3 mb-md-0">
+              <div className="col-12 col-sm-6 col-md-6 col-lg-5 mb-3 mb-md-0">
                 <h1 className="tx-primary text-center text-md-start">{t('title')}</h1>
               </div>
               
-              <div className="col-12 col-sm-6 col-md-5 mb-3 mb-md-0">
+              <div className="col-12 col-sm-6  col-md-6 col-lg-4 mb-3 mb-md-0">
                 <div className="d-flex justify-content-center justify-content-md-end">
                   <SearchBar />
                 </div>
               </div>
               
-              <div className="col-12 col-sm-12 col-md-3">
-                <div className="d-flex flex-column flex-md-row justify-content-center justify-content-md-end gap-2">
-                  <ThemeToggleButton />
+              <div className="col-md-12 col-lg-3 mt-md-4 mt-lg-0">
+                <div className="d-flex flex-row justify-content-center justify-content-lg-end gap-2">
+                  <ThemeToggleButton /> 
                   <LangDropDown />
                 </div>
               </div>

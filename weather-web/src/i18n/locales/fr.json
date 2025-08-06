@@ -16,5 +16,23 @@
     "delete_location": "Supprimer l'emplacement",
     "24_hour_forecast": "Prévision sur 24 Heures",
     "forecast_for_next_24_hours": "Prévision de {{metric}} pour les prochaines 24 heures",
-    "saved_locations": "Emplacements enregistrés"
+    "saved_locations": "Emplacements enregistrés",
+    "serch_for_location": "Rechercher un emplacement",
+
+    "thunderstorm": "Orage",
+    "drizzle": "Bruine",
+    "rain": "Pluie",
+    "snow": "Neige",
+    "mist": "Brume",
+    "smoke": "Fumée",
+    "haze": "Brume",
+    "dust": "Poussière",
+    "fog": "Brouillard",
+    "sand": "Sable",
+    "ash": "Cendre",
+    "squall": "Grain",
+    "tornado": "Tornade",
+    "clear": "Dégagé",
+    "clouds": "Nuages",
+    "unknown": "Inconnu"
 }

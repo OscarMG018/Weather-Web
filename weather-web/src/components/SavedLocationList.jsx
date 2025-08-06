@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import SavedLocationCard from './SavedLocationCard'
 import { useTranslation } from 'react-i18next'
+import { useCurrentLocation } from '../context/CurrentLocationContext.jsx'
+import { useServer } from '../context/ServerContext.jsx'
 
-function SavedLocationList({ currentLocation }) {
-  const { t } = useTranslation()
+function SavedLocationList() {
+  const { t, i18n } = useTranslation()
+  const { currentLocation } = useCurrentLocation()
+  const { serverUrl } = useServer()
   const [locations, setLocations] = useState(() => {
     return JSON.parse(localStorage.getItem('savedLocations')) || []
   })
@@ -12,17 +16,60 @@ function SavedLocationList({ currentLocation }) {
     localStorage.setItem('savedLocations', JSON.stringify(locations))
   }, [locations])
 
+  const updateLocationsWeather = async () => {
+    if (locations.length === 0) return
+
+    const updatedLocations = await Promise.all(
+      locations.map(async (location) => {
+        try {
+          const response = await fetch(`${serverUrl}/api/weather/all?location=${encodeURIComponent(location.name.en)}`)
+          const weatherData = await response.json()
+          
+          if (weatherData && weatherData.current) {
+            return {
+              ...location,
+              weather: {
+                es: t(weatherData.current.weather.toLowerCase(), { lng: 'es' }),
+                en: t(weatherData.current.weather.toLowerCase(), { lng: 'en' }),
+                fr: t(weatherData.current.weather.toLowerCase(), { lng: 'fr' })
+              },
+              temperature: weatherData.current.temp?.celsius + "°C" || 'N/A'
+            }
+          }
+          return location
+        } catch (error) {
+          console.error(`Failed to update weather for ${location.name.en}:`, error)
+          return location
+        }
+      })
+    )
+
+    setLocations(updatedLocations)
+  }
+
+  useEffect(() => {
+    updateLocationsWeather()
+  }, []) 
+
     const handleSaveCurrentLocation = () => {
     if (currentLocation && currentLocation.name) {
       const newLocation = {
         index: locations.length,
-        name: currentLocation.name,
-        weather: currentLocation.weather || 'Unknown',
-        temperature: currentLocation.temperature || 'N/A'
+        name: {
+          en: currentLocation.name.en,
+          es: currentLocation.name.es,
+          fr: currentLocation.name.fr
+        },
+        weather: {
+          es: t(currentLocation.current.weather.toLowerCase(), { lng: 'es' }),
+          en: t(currentLocation.current.weather.toLowerCase(), { lng: 'en' }),
+          fr: t(currentLocation.current.weather.toLowerCase(), { lng: 'fr' })
+        },
+        temperature: currentLocation.current.temp?.celsius + "°C" || 'N/A'
       }
       
       // Check if location already exists
-      const exists = false /*locations.some(loc => loc.name === newLocation.name)*/
+      const exists = locations.some(loc => loc.name.en === newLocation.name.en)
       if (!exists) {
         setLocations(prev => [...prev, newLocation])
       }
@@ -48,8 +95,8 @@ function SavedLocationList({ currentLocation }) {
                 {locations.map((location, index) => (
                     <SavedLocationCard
                         key={index}
-                        name={location.name}
-                        weather={location.weather}
+                        name={location.name[i18n.language] || location.name.en || ''}
+                        weather={location.weather[i18n.language] || location.weather.en || t("unknown")}
                         temperature={location.temperature}
                         onDelete={() => handleDeleteLocation(location.index)}
                   />
@@ -57,6 +104,7 @@ function SavedLocationList({ currentLocation }) {
             </div>
           )}
         </div>
+        
         {currentLocation && currentLocation.name && (
           <div className="text-center mt-auto pt-3" style={{ flexShrink: 0 }}>
             <button

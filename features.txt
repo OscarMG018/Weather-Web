@@ -30,3 +30,13 @@ Multilingual Support:
     English, Spanish, French
 Responsive Design:
     Ensure the app works on all devices and screen sizes.
+
+todo:
+FRONTEND
+    
+    make charts scrollable for one day
+    addd icons to forecast
+    Add toggle to change metric or imperial units
+    search results css
+    detect location on load
+    decrese chart circle size on lower screen sizes
