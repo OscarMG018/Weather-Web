@@ -17,7 +17,7 @@
     "24_hour_forecast": "24-Hour Forecast",
     "forecast_for_next_24_hours": "{{metric}} forecast for the next 24 hours",
     "saved_locations": "Saved Locations",
-    "serch_for_location": "Search for a location",
+    "search_for_location": "Search for a location",
 
     "thunderstorm" : "Thunderstorm",
     "drizzle" : "Drizzle",

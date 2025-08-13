@@ -1,21 +1,11 @@
-const locationsService = require('./locationsService.js');
-
-function celsiusToFahrenheit(celsius) {
-    return (celsius * 9) / 5 + 32;
-}
-
 function formatWeatherData(data) {
-    const location = locationsService.getLocationByEnName(data.name);
     const responseData = {
         name: {
             en: data.name,
-            es: location ? location.name.es : data.name,
-            fr: location ? location.name.fr : data.name
+            es: data.name,
+            fr: data.name
         },
-        temp: {
-            celsius: Math.round(data.main.temp),
-            fahrenheit: Math.round(celsiusToFahrenheit(data.main.temp))
-        },
+        temp: Math.round(data.main.temp),
         humidity: data.main.humidity,
         pressure: data.main.pressure,
         wind: {

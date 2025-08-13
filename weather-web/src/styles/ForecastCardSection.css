@@ -1,3 +1,11 @@
+:root.theme-light {
+  --bs-tx-primary: #2c86fc;
+}
+
+:root.theme-dark {
+  --bs-tx-primary: #5b76f0;
+}
+
 .forecast-card-section {
   transition: all 0.3s ease;
 }
@@ -36,6 +44,19 @@
   border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
+/* Horizontal slider wrapper for the chart (used primarily on small screens) */
+.chart-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Inner element whose width expands on small screens to enable horizontal sliding */
+.chart-scroll-inner {
+  min-width: 0; /* default: no extra width on large screens */
+}
+
 /* Dark mode specific chart styling */
 .theme-dark .chart-container {
   background: rgba(255, 255, 255, 0.02);
@@ -54,6 +75,40 @@
   margin-top: 1rem;
 }
 
+.chart-slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-btn {
+  background: rgba(0,0,0,0.08);
+  border: none;
+  color: #333;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin: 0 8px;
+  z-index: 2;
+}
+.slider-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.slider-btn:hover:not(:disabled) {
+  background: var(--bs-tx-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .forecast-toggle-buttons {
@@ -69,6 +124,18 @@
   .chart-container {
     height: 250px !important;
   }
+
+  .slider-btn {
+    font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+  }
+
+  /* Enable horizontal sliding space for charts on tablets */
+  .chart-scroll-inner {
+    min-width: 1000px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -80,5 +147,10 @@
   
   .chart-container {
     height: 200px !important;
+  }
+  
+  /* More sliding space on smaller phones */
+  .chart-scroll-inner {
+    min-width: 1200px;
   }
 } 

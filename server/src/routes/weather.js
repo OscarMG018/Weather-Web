@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/current', weatherMiddleware.getWeather, weatherController.getWeather);
 router.get('/forecast', weatherMiddleware.getWeather, weatherController.getForecast);
-router.get('/all', weatherMiddleware.getWeather, weatherController.getWeatherCombined);
+router.get('/all', weatherMiddleware.getWeatherAll, weatherController.getWeatherCombined);
 
 module.exports = router;

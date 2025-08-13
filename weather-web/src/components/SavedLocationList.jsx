@@ -22,7 +22,10 @@ function SavedLocationList() {
     const updatedLocations = await Promise.all(
       locations.map(async (location) => {
         try {
-          const response = await fetch(`${serverUrl}/api/weather/all?location=${encodeURIComponent(location.name.en)}`)
+          const query = (typeof location.lat === 'number' && typeof location.lon === 'number')
+            ? `lat=${encodeURIComponent(location.lat)}&lon=${encodeURIComponent(location.lon)}`
+            : `lat=${encodeURIComponent(currentLocation?.lat ?? 0)}&lon=${encodeURIComponent(currentLocation?.lon ?? 0)}`
+          const response = await fetch(`${serverUrl}/api/weather/all?${query}`)
           const weatherData = await response.json()
           
           if (weatherData && weatherData.current) {
@@ -33,7 +36,7 @@ function SavedLocationList() {
                 en: t(weatherData.current.weather.toLowerCase(), { lng: 'en' }),
                 fr: t(weatherData.current.weather.toLowerCase(), { lng: 'fr' })
               },
-              temperature: weatherData.current.temp?.celsius + "°C" || 'N/A'
+              temperature: weatherData.current.temp || 'N/A'
             }
           }
           return location
@@ -60,12 +63,14 @@ function SavedLocationList() {
           es: currentLocation.name.es,
           fr: currentLocation.name.fr
         },
+        lat: currentLocation.lat,
+        lon: currentLocation.lon,
         weather: {
           es: t(currentLocation.current.weather.toLowerCase(), { lng: 'es' }),
           en: t(currentLocation.current.weather.toLowerCase(), { lng: 'en' }),
           fr: t(currentLocation.current.weather.toLowerCase(), { lng: 'fr' })
         },
-        temperature: currentLocation.current.temp?.celsius + "°C" || 'N/A'
+        temperature: currentLocation.current.temp || 'N/A'
       }
       
       // Check if location already exists

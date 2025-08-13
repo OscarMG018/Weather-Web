@@ -14,10 +14,6 @@ Saved Locations:
     Let users bookmark several locations for quick access.
 Hourly Forecast Graphs:
     Plot temperature, wind, or precipitation by hour.
-UV Index:
-    Display UV risk levels with health guidance.
-Air Pollution Data:
-    Show air quality index (PM2.5, PM10, CO, etc.)
 Sunrise and Sunset Times:
     Display exact times and highlight remaining daylight.
 Feels Like Temperature:
@@ -32,11 +28,3 @@ Responsive Design:
     Ensure the app works on all devices and screen sizes.
 
 todo:
-FRONTEND
-    
-    make charts scrollable for one day
-    addd icons to forecast
-    Add toggle to change metric or imperial units
-    search results css
-    detect location on load
-    decrese chart circle size on lower screen sizes

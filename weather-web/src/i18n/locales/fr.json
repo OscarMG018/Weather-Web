@@ -17,7 +17,7 @@
     "24_hour_forecast": "Prévision sur 24 Heures",
     "forecast_for_next_24_hours": "Prévision de {{metric}} pour les prochaines 24 heures",
     "saved_locations": "Emplacements enregistrés",
-    "serch_for_location": "Rechercher un emplacement",
+    "search_for_location": "Rechercher un emplacement",
 
     "thunderstorm": "Orage",
     "drizzle": "Bruine",

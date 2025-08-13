@@ -2,6 +2,7 @@
     position: relative;
     width: 100%;
     max-width: 400px;
+    z-index: 0;
 }
 
 .search-input {
@@ -11,6 +12,7 @@
     color: var(--bs-tx-secondary);  
     border-radius: 25px;
     width: 100%;
+    z-index: 1;
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
@@ -36,6 +38,49 @@
 
 .search-btn:hover {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.search-dropdown-padding {
+    padding-top: 20px;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 107%;  
+    left: 0;
+    right: 0;
+    background: var(--bs-bg-primary);
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    z-index: -1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.search-dropdown-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    color: var(--bs-tx-secondary);
+}
+
+.search-dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Theme-specific adjustments */
+:root.theme-dark .search-dropdown {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+:root.theme-dark .search-dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+:root.theme-light .search-dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.06);
 }
 
 /* Responsive adjustments */

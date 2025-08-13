@@ -8,13 +8,16 @@ import { ThemeProvider } from './context/ThemeProvider.jsx'
 import './i18n/index.js'
 import { ServerProvider } from './context/ServerContext.jsx'
 import { CurrentLocationProvider } from './context/CurrentLocationContext.jsx'
+import { UnitsProvider } from './context/UnitsProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ServerProvider>
       <CurrentLocationProvider>
         <ThemeProvider>
-          <App />
+          <UnitsProvider>
+            <App />
+          </UnitsProvider>
         </ThemeProvider>
       </CurrentLocationProvider>
     </ServerProvider>

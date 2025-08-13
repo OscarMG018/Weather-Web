@@ -17,7 +17,7 @@
     "24_hour_forecast": "Pronóstico de 24 Horas",
     "forecast_for_next_24_hours": "Pronóstico de {{metric}} para las próximas 24 horas",
     "saved_locations": "Ubicaciones guardadas",
-    "serch_for_location": "Busca una ubicación",
+    "search_for_location": "Busca una ubicación",
 
     "thunderstorm" : "Tormenta",
     "drizzle" : "Llovizna",
