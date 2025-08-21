@@ -23,7 +23,7 @@
                     return;
                 }
                 const controller = new AbortController();
-                fetch(`${serverUrl}/api/locations/search?name=${encodeURIComponent(query)}`, { signal: controller.signal })
+                fetch(`${serverUrl}/api/locations/search?name=${encodeURIComponent(query)}&lang=${i18n.language}`, { signal: controller.signal })
                     .then(res => res.json())
                     .then(data => {
                         setResults(data);
@@ -45,13 +45,25 @@
                     });
             };
 
+            const fetchWeatherByName = (name) => {
+                return fetch(`${serverUrl}/api/weather/all?name=${encodeURIComponent(name)}&lang=${i18n.language}`)
+                    .then(async (res) => {
+                        if (!res.ok) {
+                            const error = new Error(`HTTP ${res.status}`);
+                            error.status = res.status;
+                            throw error;
+                        }
+                        return res.json();
+                    });
+            };
+
             const handleSelect = (loc) => {
                 const lat = loc?.lat;
                 const lon = loc?.lon;
                 if (typeof lat !== 'number' || typeof lon !== 'number') return;
                 fetchWeatherByCoords(lat, lon)
                     .then((data) => {
-                        setCurrentLocation({ ...data, lat, lon });
+                        setCurrentLocation(data);
                         setShowDropdown(false);
                         setQuery('');
                     })
@@ -61,15 +73,11 @@
             };
 
             const handleSearch = () => {
-                // If dropdown has results, pick the first result
-                const loc = results[0];
-                if (!loc) return;
-                const lat = loc?.lat;
-                const lon = loc?.lon;
-                if (typeof lat !== 'number' || typeof lon !== 'number') return;
-                fetchWeatherByCoords(lat, lon)
+                const name = query.trim();
+                if (name.length === 0) return;
+                fetchWeatherByName(name)
                     .then((data) => {
-                        setCurrentLocation({ ...data, lat, lon });
+                        setCurrentLocation(data);
                         setShowDropdown(false);
                         setQuery('');
                     })

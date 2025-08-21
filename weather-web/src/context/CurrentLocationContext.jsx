@@ -18,7 +18,7 @@ export function CurrentLocationProvider({ children }) {
       ({ coords }) => {
         const { latitude, longitude } = coords || {};
         if (typeof latitude !== 'number' || typeof longitude !== 'number') return;
-        fetch(`${serverUrl}/api/weather/all?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`)
+        fetch(`${serverUrl}/api/weather/all?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}&radius=5`)
           .then(res => res.json())
           .then(data => {
             if (data && data.current) {

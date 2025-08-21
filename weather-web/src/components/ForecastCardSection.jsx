@@ -120,6 +120,7 @@ const ForecastCardSection = () => {
 
   function getWeatherIcons(forecast) {
     return forecast.map(item => {
+      return createFontAwesomeIcon('\uf0c2');
       const weather = item.weather;
       switch (weather) {
         case 'Thunderstorm':
@@ -189,7 +190,8 @@ const ForecastCardSection = () => {
   const temperature = selectedPeriodForecast.map(item => getWeatherUnitText(units, 'temperature', item.temp));
   const windSpeed = selectedPeriodForecast.map(item => getWeatherUnitText(units, 'wind_speed', item.wind?.speed));
   const humidity = selectedPeriodForecast.map(item => getWeatherUnitText(units, 'humidity', item.humidity));
-
+  const maxTemp = Math.max(...temperature);
+  const minTemp = Math.min(...temperature);
   const temperatureIcons = getWeatherIcons(selectedPeriodForecast);
 
   const forecastData = {
@@ -288,7 +290,10 @@ const ForecastCardSection = () => {
         }
       },
       y: {
-        min: 0,
+        ...(activeMetric === 'temperature' && {
+          min: minTemp*0.5,
+          max: maxTemp*1.2
+        }),
         grid: {
           color: 'rgba(128, 128, 128, 0.3)',
           borderColor: 'rgba(128, 128, 128, 0.5)',
@@ -390,7 +395,7 @@ const ForecastCardSection = () => {
         ))}
       </div>
       {/* Current day label above the chart */}
-      <div className="text-center mb-2">
+      <div className="text-center tx-secondary mb-2">
         <strong>{getPeriodWeekdayLabel(selectedPeriodKey)}</strong>
       </div>
       {/* Chart Container with slider buttons */}
@@ -418,7 +423,7 @@ const ForecastCardSection = () => {
         </button>
       </div>
       {/* Period label */}
-      <div className="text-center mt-2 mb-2">
+      <div className="text-center tx-secondary mt-2 mb-2">
         <strong>{getPeriodLabel(selectedPeriodKey)}</strong>
       </div>
       {/* Current Metric Info */}

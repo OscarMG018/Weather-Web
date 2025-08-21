@@ -5,9 +5,9 @@ const { notFoundHandler } = require('./middleware/errorHandler.js');
 const cors = require('cors');
 require('dotenv').config({ path: '.env' });
 
+console.log(process.env.PORT);
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 /* CORS LOCAL */
 app.use(cors({
   origin: 'http://localhost:5173'
@@ -25,7 +25,7 @@ app.use(cors({
 app.use((req, res, next) => {
   const timestamp = new Date().toISOString();
   const ip = req.ip || req.connection.remoteAddress;
-  console.log(`[${timestamp}] ${req.method} ${req.url} - IP: ${ip}`);
+  //console.log(`[${timestamp}] ${req.method} ${req.url} - IP: ${ip}`);
   next();
 });
 

@@ -4,7 +4,7 @@ const locationsMiddleware = require('../middleware/locationsMiddleware.js');
 
 const router = express.Router();
 
-router.get('/id/:id', locationsMiddleware.getLocationById, locationsController.getLocationById);
+router.get('/lonlat', locationsMiddleware.getLocationByCoordinates, locationsController.getLocationByCoordinates);
 router.get('/search', locationsMiddleware.getMatchingLocations, locationsController.getMatchingLocations);
 
 module.exports = router;

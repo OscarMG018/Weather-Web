@@ -25,16 +25,16 @@ function SavedLocationList() {
           const query = (typeof location.lat === 'number' && typeof location.lon === 'number')
             ? `lat=${encodeURIComponent(location.lat)}&lon=${encodeURIComponent(location.lon)}`
             : `lat=${encodeURIComponent(currentLocation?.lat ?? 0)}&lon=${encodeURIComponent(currentLocation?.lon ?? 0)}`
-          const response = await fetch(`${serverUrl}/api/weather/all?${query}`)
+          const response = await fetch(`${serverUrl}/api/weather/current?${query}`)
           const weatherData = await response.json()
           
-          if (weatherData && weatherData.current) {
+          if (weatherData) {
             return {
               ...location,
               weather: {
-                es: t(weatherData.current.weather.toLowerCase(), { lng: 'es' }),
-                en: t(weatherData.current.weather.toLowerCase(), { lng: 'en' }),
-                fr: t(weatherData.current.weather.toLowerCase(), { lng: 'fr' })
+                es: t(weatherData.weather.toLowerCase(), { lng: 'es' }),
+                en: t(weatherData.weather.toLowerCase(), { lng: 'en' }),
+                fr: t(weatherData.weather.toLowerCase(), { lng: 'fr' })
               },
               temperature: weatherData.current.temp || 'N/A'
             }

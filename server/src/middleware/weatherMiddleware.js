@@ -12,7 +12,7 @@ function validateCoords(lat, lon) {
 
 function getWeather(req, res, next) {
   const { lat, lon } = req.query;
-  if (lat === undefined || lon === undefined) {
+  if (!lat || !lon) {
     return res.status(400).json({ error: 'Coordinates are required' });
   }
   const { valid, error } = validateCoords(lat, lon);
@@ -21,12 +21,23 @@ function getWeather(req, res, next) {
 }
 
 function getWeatherAll(req, res, next) {
-  const { lat, lon } = req.query;
-  if (lat === undefined || lon === undefined) {
-    return res.status(400).json({ error: 'Coordinates are required' });
+  const { lat, lon, name, lang, radius } = req.query;
+  if (!name && !lang && (!lat || !lon)) {
+    return res.status(400).json({ error: 'Coordinates or name are required' });
   }
-  const { valid, error } = validateCoords(lat, lon);
-  if (!valid) return res.status(400).json({ error });
+  else if (!lat && !lon && (!name || !lang)) {
+    return res.status(400).json({ error: 'Coordinates or name are required' });
+  }
+  if (!name && !lang) {
+    const { valid, error } = validateCoords(lat, lon);
+    if (!valid) return res.status(400).json({ error });
+  }
+  if (radius) {
+    const radiusNum = parseFloat(radius);
+    if (isNaN(radiusNum) || radiusNum <= 0) {
+      return res.status(400).json({ error: 'Radius must be a positive number' });
+    }
+  }
   next();
 }
 
