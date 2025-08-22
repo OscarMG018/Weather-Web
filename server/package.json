@@ -19,6 +19,7 @@
     "dotenv": "^17.2.1",
     "node-fetch": "^3.3.2",
     "stream-chain": "^3.4.0",
-    "stream-json": "^1.9.1"
+    "stream-json": "^1.9.1",
+    "express": "^4.18.2"
   }
 }
