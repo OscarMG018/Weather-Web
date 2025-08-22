@@ -8,18 +8,11 @@ require('dotenv').config({ path: '.env' });
 console.log(process.env.PORT);
 const app = express();
 const PORT = process.env.PORT || 3000;
-/* CORS LOCAL */
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
-
-/* CORS PROD 
 
 app.use(cors({
-  origin: 'https://frontend-domain-url'
+  origin: ['https://voluble-travesseiro-4a0275.netlify.app/', 'http://localhost:5173'],
+  credentials: true,
 }));
-
-*/
 
 // Logging middleware to track API calls
 app.use((req, res, next) => {
