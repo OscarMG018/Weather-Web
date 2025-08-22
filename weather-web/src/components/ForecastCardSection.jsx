@@ -62,7 +62,7 @@ const ForecastCardSection = () => {
       ctx.font = '16px "FontAwesome"';
       let loaded = true;
       for (let i = 0; i < fontsToCheck.length; i++) {
-        const metrics = ctx.measureText('\uf185');
+        const metrics = ctx.measureText(fontsToCheck[i]);
         if (metrics.width <= 0 || metrics.width >= 50) {
           loaded = false;
         }
