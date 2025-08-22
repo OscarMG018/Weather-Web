@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import '../styles/ForecastCardSection.css';
 import { useTheme } from '../context/ThemeProvider';
@@ -36,8 +36,6 @@ import { useUnits,
   kmhToMph,
 } from '../context/UnitsProvider';
 
-
-
 function getDateLabel(item) {
   const date = new Date(item.time * 1000);
   console.log(date);
@@ -49,11 +47,32 @@ function getDateLabel(item) {
 const ForecastCardSection = () => {
   const [activeMetric, setActiveMetric] = useState('temperature');
   const [dayIndex, setDayIndex] = useState(0);
+  const [fontLoaded, setFontLoaded] = useState(false);
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
   const { currentLocation } = useCurrentLocation();
   const forecast = currentLocation?.forecast;
   const { units } = useUnits();
+
+  useEffect(() => {
+    const checkFont = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.font = '16px "FontAwesome"';
+      const metrics = ctx.measureText('\uf185');
+      if (metrics.width > 0 && metrics.width < 50) {
+        setFontLoaded(true);
+      } else {
+        setTimeout(checkFont, 100);
+      }
+    };
+    checkFont();
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        setFontLoaded(true);
+      });
+    }
+  }, []);
 
   // If no forecast, show prompt
   if (!forecast || forecast.length === 0) {
@@ -120,7 +139,6 @@ const ForecastCardSection = () => {
 
   function getWeatherIcons(forecast) {
     return forecast.map(item => {
-      return createFontAwesomeIcon('\uf0c2');
       const weather = item.weather;
       switch (weather) {
         case 'Thunderstorm':
@@ -132,17 +150,11 @@ const ForecastCardSection = () => {
         case 'Snow':
           return createFontAwesomeIcon('\uf2dc');
         case 'Mist':
-          return createFontAwesomeIcon('\uf75f');
         case 'Smoke':
-          return createFontAwesomeIcon('\uf75f');
         case 'Haze':
-          return createFontAwesomeIcon('\uf75f');
         case 'Dust':
-          return createFontAwesomeIcon('\uf75f');
         case 'Fog':
-          return createFontAwesomeIcon('\uf75f');
         case 'Sand':
-          return createFontAwesomeIcon('\uf75f');
         case 'Ash':
           return createFontAwesomeIcon('\uf75f');
         case 'Squall':
@@ -152,33 +164,29 @@ const ForecastCardSection = () => {
         case 'Clear':
           return createFontAwesomeIcon('\uf185');
         case 'Clouds':
-          return createFontAwesomeIcon('\uf0c2');
         default:
-          return createFontAwesomeIcon('\u003f');
+          return createFontAwesomeIcon('\uf0c2');
       }
     });
   }
 
   function createFontAwesomeIcon(iconCode) {
+    if (!fontLoaded) {
+      return 'circle';
+    }
     const size = 30;
     const color = theme === 'dark' ? '#fff' : '#333';
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
-    
-    // Set font to FontAwesome
-    ctx.font = `${size * 0.7}px "FontAwesome"`;
+    ctx.font = `${size * 0.7}px "FontAwesome", "Font Awesome 5 Free", sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = color;
-    ctx.zIndex = 10;
-    
-    // Draw the FontAwesome icon
-    ctx.fillText(iconCode, 16, size / 2);
-    
+    ctx.fillText(iconCode, size / 2, size / 2);
     return canvas;
-}
+  }
 
   const forecastByPeriod = groupBy24HourPeriods(forecast);
   const periodKeys = Object.keys(forecastByPeriod).map(Number).sort((a, b) => a - b);
@@ -410,7 +418,13 @@ const ForecastCardSection = () => {
         </button>
         <div className="chart-scroll">
           <div className="chart-container chart-scroll-inner" style={{ height: '300px', flex: 1 }}>
-            <Line data={getChartData(activeMetric)} options={chartOptions} />
+            {!fontLoaded ? (
+              <div className="d-flex align-items-center justify-content-center h-100">
+                <p className="tx-secondary">Loading chart...</p>
+              </div>
+            ) : (
+              <Line data={getChartData(activeMetric)} options={chartOptions} />
+            )}
           </div>
         </div>
         <button
