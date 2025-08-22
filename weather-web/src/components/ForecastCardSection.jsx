@@ -53,17 +53,20 @@ const ForecastCardSection = () => {
   const { currentLocation } = useCurrentLocation();
   const forecast = currentLocation?.forecast;
   const { units } = useUnits();
+  const fontsToCheck = ['\uf76c', '\uf743', '\uf73d', '\uf2dc', '\uf75f', '\uf740', '\uf76f', '\uf185', '\uf0c2'];
 
   useEffect(() => {
     const checkFont = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       ctx.font = '16px "FontAwesome"';
-      const metrics = ctx.measureText('\uf185');
-      if (metrics.width > 0 && metrics.width < 50) {
-        setFontLoaded(true);
-      } else {
-        setTimeout(checkFont, 100);
+      for (let i = 0; i < fontsToCheck.length; i++) {
+        const metrics = ctx.measureText('\uf185');
+        if (metrics.width > 0 && metrics.width < 50) {
+          setFontLoaded(true);
+        } else {
+          setTimeout(checkFont, 100);
+        }
       }
     };
     checkFont();
