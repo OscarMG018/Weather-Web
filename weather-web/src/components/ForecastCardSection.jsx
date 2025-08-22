@@ -35,7 +35,6 @@ import { useUnits,
   celsiusToFahrenheit,
   kmhToMph,
 } from '../context/UnitsProvider';
-import e from 'express';
 
 function getDateLabel(item) {
   const date = new Date(item.time * 1000);
