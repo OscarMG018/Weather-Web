@@ -35,6 +35,7 @@ import { useUnits,
   celsiusToFahrenheit,
   kmhToMph,
 } from '../context/UnitsProvider';
+import e from 'express';
 
 function getDateLabel(item) {
   const date = new Date(item.time * 1000);
@@ -60,13 +61,17 @@ const ForecastCardSection = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       ctx.font = '16px "FontAwesome"';
+      let loaded = true;
       for (let i = 0; i < fontsToCheck.length; i++) {
         const metrics = ctx.measureText('\uf185');
-        if (metrics.width > 0 && metrics.width < 50) {
-          setFontLoaded(true);
-        } else {
-          setTimeout(checkFont, 100);
+        if (metrics.width <= 0 || metrics.width >= 50) 
+          loaded = false;
         }
+      }
+      if (loaded) {
+        setFontLoaded(true);
+      } else {
+        setTimeout(checkFont, 100);
       }
     };
     checkFont();
